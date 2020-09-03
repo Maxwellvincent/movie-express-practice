@@ -1,2 +1,5 @@
 # Hides the env variables 
 .env
+
+# 
+node_modules
