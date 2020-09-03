@@ -32,7 +32,6 @@ app.use((error, req, res, next) => {
         response = { error }
     }
     res.status(500).json(response);
-    next();
 });
 
 app.get('/movie', (req, res) => {
@@ -51,7 +50,7 @@ app.get('/movie', (req, res) => {
     res.json(response);
 })
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log("You are now listening to PORT 8000");
+    console.log("You are now listening to PORT 3000");
 })
