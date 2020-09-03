@@ -5,10 +5,12 @@ const helmet = require('helmet');
 const cors = require('cors');
 const movies = require('./movie-data.json');
 const app = express();
-console.log(process.env.API_TOKEN);
+
+// console.log(process.env.API_TOKEN);
 app.use(cors());
 app.use(helmet());
-app.use(morgan('dev'));
+const morganSetting = process.env.NODE_ENV === "production" ? "tiny" : "common"
+app.use(morgan(morganSetting));
 
 app.use(function validateToken(req, res, next) {
     const token = req.get('Authorization').split(' ')[1];
@@ -19,6 +21,17 @@ app.use(function validateToken(req, res, next) {
             error: 'Unauthorized request'
         });
     }
+    next();
+});
+
+app.use((error, req, res, next) => {
+    let response;
+    if (process.env.NODE_ENV === "production") {
+        response = { error: { message: 'server error' } }
+    } else {
+        response = { error }
+    }
+    res.status(500).json(response);
     next();
 });
 
@@ -38,7 +51,7 @@ app.get('/movie', (req, res) => {
     res.json(response);
 })
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    console.log("You are now listening to PORT 8000");
+    // console.log("You are now listening to PORT 8000");
 })
