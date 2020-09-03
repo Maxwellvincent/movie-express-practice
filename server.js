@@ -53,5 +53,5 @@ app.get('/movie', (req, res) => {
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    // console.log("You are now listening to PORT 8000");
+    console.log("You are now listening to PORT 8000");
 })
