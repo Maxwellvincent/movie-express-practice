@@ -9,7 +9,7 @@ const app = express();
 // console.log(process.env.API_TOKEN);
 app.use(cors());
 app.use(helmet());
-const morganSetting = process.env.NODE_ENV === "production" ? "tiny" : "common"
+const morganSetting = process.env.NODE_ENV === "production" ? "tiny" : "common";
 app.use(morgan(morganSetting));
 
 app.use(function validateToken(req, res, next) {
@@ -50,7 +50,7 @@ app.get('/movie', (req, res) => {
     res.json(response);
 })
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    console.log("You are now listening to PORT 3000");
-})
+    console.log(`Server listening at http://localhost:${PORT}`);
+});
